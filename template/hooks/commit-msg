@@ -1,0 +1,29 @@
+# Título: Resumo, imperativo, começando com maiúscula e sem ponto final
+# Exemplo: Adicionar/Consertar algo
+# Não mais que 72 caracteres. ###################### 72 caracteres aqui: #
+
+# Lembre-se da linha em branco entre título e corpo. Não apague a próxima linha.
+
+# Corpo: Explique *o que* e *por que* (não *como*). Inclua IDs de tarefas.
+# Quebre em 72 caracteres. ############################### até aqui: #
+
+
+# Como Escrever uma Mensagem de Commit no Git:
+# https://chris.beams.io/posts/git-commit/
+#
+# 1. Separe o título do corpo com uma linha em branco
+# 2. Limite a linha de título a 72 caracteres
+# 3. Use letra maiúscula no início da linha de título
+# 4. Não termine a linha de título com ponto final
+# 5. Use o modo imperativo no título
+# 6. Quebre o corpo em 72 caracteres
+# 7. Use o corpo para explicar o que e por que, em vez de como
+
+# Digite a mensagem de commit para suas alterações. Linhas iniciadas
+# com '#' serão ignoradas, e uma mensagem vazia aborta o commit.
+#
+# No branch dev
+# Seu branch está atualizado com 'origin/dev'.
+#
+# Alterações a serem commitadas:
+#       novo arquivo:   1
