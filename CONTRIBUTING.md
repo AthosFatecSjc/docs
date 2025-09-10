@@ -26,36 +26,49 @@ Onde encontrar esses elementos para realizar o commit:
 ### Usar template de Commit
 ### Exemplo de commit e onde achar o ID da tarefa no Jira:
 
-![\[Espaço para a imagem do exemplo de commit e o ID no Jira\]](img/padraocommit.png)
+<img width="1210" height="1203" alt="image" src="https://github.com/user-attachments/assets/0727a76b-0106-4188-b306-94e286e5cb18" />
+
+
 
 ---
 
 ## 3. Tipos e Exemplos de commits
 
-* **feat**: usado para novas funcionalidades.
-    * Exemplo: `ATHOS-01 feat(autenticacao): adiciona endpoint de login`
-* **fix**: usado para correções de bugs.
-    * Exemplo: `ATHOS-01 fix(usuário): corrige upload da foto de perfil`
-* **chore**: usado para tarefas de manutenção, sem impacto direto no código de produção.
-    * Exemplo: `ATHOS-01 chore: atualiza dependências do projeto`
-* **docs**: usado para alterações em documentação.
-    * Exemplo: `ATHOS-01 docs(readme): atualiza instruções de instalação`
-* **style**: usado para ajustes de formatação e estilo, sem alterar comportamento do código.
-    * Exemplo: `ATHOS-01 style: corrige indentação no main.css`
-* **refactor**: usado para refatoração de código, sem corrigir bugs nem adicionar funcionalidades.
-    * Exemplo: `ATHOS-01 refactor(servico-usuario): remove verificações redundantes`
-* **perf**: usado para melhorias de desempenho.
-    * Exemplo: `ATHOS-01 perf(api): reduz tempo de resposta do endpoint de busca`
-* **test**: usado para adição ou ajuste de testes.
-    * Exemplo: `ATHOS-01 test(usuario): adiciona testes unitários para atualização de perfil`
-* **build**: usado para mudanças em sistema de build ou dependências externas.
-    * Exemplo: `ATHOS-01 build: adiciona configuração Docker para deployment`
-* **ci**: usado para mudanças em arquivos ou scripts de integração contínua (CI).
-    * Exemplo: `ATHOS-01 ci: atualiza workflow do GitHub Actions para PRs`
-* **revert**: usado para reverter um commit anterior.
-    * Exemplo: `ATHOS-01 revert: reverte "feat(auth): adiciona endpoint de login com JWT"`
-* **hotfix**: usado para correções urgentes em produção.
-    * Exemplo: `ATHOS-01 hotfix: corrige falha ao registrar usuário`
+* **feat**: usado para novas funcionalidades.  
+  * Exemplo: `ATHOS-01 feat(autenticacao): adiciona endpoint de login`
+
+* **fix**: usado para correções de bugs.  
+  * Exemplo: `ATHOS-01 fix(usuario): corrige upload da foto de perfil`
+
+* **chore**: usado para tarefas de manutenção, sem impacto direto no código de produção.  
+  * Exemplo: `ATHOS-01 chore(deps): atualiza dependências do projeto`
+
+* **docs**: usado para alterações em documentação.  
+  * Exemplo: `ATHOS-01 docs(readme): atualiza instruções de instalação`
+
+* **style**: usado para ajustes de formatação e estilo, sem alterar comportamento do código.  
+  * Exemplo: `ATHOS-01 style(css): corrige indentação no main.css`
+
+* **refactor**: usado para refatoração de código, sem corrigir bugs nem adicionar funcionalidades.  
+  * Exemplo: `ATHOS-01 refactor(servico-usuario): remove verificações redundantes`
+
+* **perf**: usado para melhorias de desempenho.  
+  * Exemplo: `ATHOS-01 perf(api): reduz tempo de resposta do endpoint de busca`
+
+* **test**: usado para adição ou ajuste de testes.  
+  * Exemplo: `ATHOS-01 test(usuario): adiciona testes unitários para atualização de perfil`
+
+* **build**: usado para mudanças em sistema de build ou dependências externas.  
+  * Exemplo: `ATHOS-01 build(docker): adiciona configuração Docker para deployment`
+
+* **ci**: usado para mudanças em arquivos ou scripts de integração contínua (CI).  
+  * Exemplo: `ATHOS-01 ci(workflow): atualiza workflow do GitHub Actions para PRs`
+
+* **revert**: usado para reverter um commit anterior.  
+  * Exemplo: `ATHOS-01 revert(auth): reverte "feat(auth): adiciona endpoint de login com JWT"`
+
+* **hotfix**: usado para correções urgentes em produção.  
+  * Exemplo: `ATHOS-01 hotfix(usuario): corrige falha ao registrar usuário`
 
 ---
 
