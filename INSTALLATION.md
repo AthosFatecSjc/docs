@@ -83,7 +83,7 @@ DATABASES = {
 
 ### 5\. Inicialização da Aplicação
 
-#### 5.1. Aplicar Migrações
+#### 5.1. Aplicar Migrações de dados (se necessário)
 
 ```bash
 python manage.py migrate
