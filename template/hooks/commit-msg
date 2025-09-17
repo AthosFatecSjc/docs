@@ -1,6 +1,6 @@
 #!/bin/sh
 MSG_FILE=$1
-MSG=$(head -n1 "$MSG_FILE")
+MSG=$(grep -E '^ATHOS-[0-9]+' "$MSG_FILE")
 
 # Verifica comprimento
 if [ ${#MSG} -gt 72 ]; then
