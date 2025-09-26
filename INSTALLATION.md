@@ -10,90 +10,147 @@ Este documento técnico detalha o procedimento para configurar o ambiente de des
 
 Antes de iniciar a instalação, certifique-se de que os seguintes componentes estão instalados em seu sistema operacional:
 
-  * **Python 3.6+**: O projeto requer uma versão do Python 3.
+  * **Python 3.11+**: O projeto requer uma versão do Python 3.
   * **Git**: Ferramenta de controle de versão para clonagem do repositório.
-  * **PostgreSQL**: Banco de dados utilizado pela aplicação. É necessário ter acesso a um servidor PostgreSQL na nuvem e suas credenciais.
+  * **Docker** e **Docker Compose**: Essenciais para gerenciar o banco de dados.
+  * **WSL (Windows Subsystem for Linux)**: Requisito para usuários de Windows.
 
 -----
 
-### 2\. Configuração do Ambiente Local
+## 🚀 Primeiros Passos: Clonagem e Configuração Inicial
 
-Esta seção aborda a preparação do ambiente Python, que é fundamental para isolar as dependências do projeto.
+Após clonar este repositório, é necessário rodar um script de configuração inicial que prepara o ambiente de desenvolvimento.
 
-#### 2.1. Clonagem do Repositório
+Esse script irá:
 
-Use o Git para clonar o projeto e acessar a pasta raiz:
+  * Atualizar e inicializar os **submódulos** (`docs`, `server`).
+  * Configurar o **template de commits**.
+  * Instalar o **hook de validação** de mensagens de commit.
+
+O projeto estará devidamente configurado após a execução dos passos.
+
+### Passo a Passo
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/AthosFatecSjc/Athos.git
+    cd Athos
+    ```
+
+2.  **Dê permissão de execução para o script (se necessário):**
+
+    ```bash
+    chmod +x getting-started.sh
+    ```
+
+3.  **Execute o script de configuração inicial:**
+
+    ```bash
+    ./getting-started.sh
+    ```
+
+4.  **Confirme o status dos submódulos:**
+
+    ```bash
+    git submodule status
+    ```
+
+-----
+
+## 2\. Configuração do Ambiente `server`
+
+Após a clonagem e inicialização dos submódulos, vamos configurar o ambiente do servidor e do banco de dados.
+
+### 2.1. Acessar o Submódulo `server`
+
+Mova-se para o diretório da aplicação:
 
 ```bash
-git clone https://github.com/AthosFatecSjc/server.git
 cd server
 ```
 
-#### 2.2. Criação e Ativação do Ambiente Virtual
+### 2.2. Criação e Ativação do Ambiente Virtual (`venv`)
 
-Crie e ative um ambiente virtual para o projeto. Isso garante que as bibliotecas não entrem em conflito com outros projetos.
+Crie um ambiente isolado para evitar conflitos de dependências com o sistema operacional.
 
-  * **Windows**:
-    ```bash
-    py -m venv venv
-    .\venv\Scripts\activate
-    ```
-  * **Linux/macOS**:
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+```bash
+# Criar o ambiente virtual
+python3 -m venv venv
 
------
+# Ativar o ambiente virtual
+source venv/bin/activate
+```
 
-### 3\. Instalação das Dependências
+### 2.3. Instalação das Dependências
 
-Com o ambiente virtual ativo, instale as dependências listadas em `requirements.txt`:
+Com o ambiente virtual **ativo** (`(venv)` no prompt), instale as dependências listadas em `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
 ```
 
------
+### 2.4. Configuração do Arquivo `.env`
 
-### 4\. Configuração do Banco de Dados (PostgreSQL na Nuvem)
+Crie e configure o arquivo de variáveis de ambiente com as credenciais do banco de dados e a chave secreta da aplicação.
 
-O banco de dados é externo (nuvem) e deve ser configurado no arquivo `gestaohoras/settings.py`.
+```bash
+# Crie o arquivo .env
+touch .env
 
-1.  Abra o arquivo `gestaohoras/settings.py`.
-2.  Localize o dicionário `DATABASES`.
-3.  Preencha com suas credenciais.
+# Abra o editor (nano é um editor simples de terminal)
+nano .env
+```
 
-**Exemplo**:
+**Conteúdo do arquivo `.env`:**
 
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nome_do_seu_banco',
-        'USER': 'seu_usuario',
-        'PASSWORD': 'sua_senha',
-        'HOST': 'endereco_do_servidor_na_nuvem.com',
-        'PORT': '5432',
-    }
-}
+```env
+POSTGRES_DB=<nome-do-banco-vem-aqui>
+POSTGRES_USER=<usuario-do-banco-vem-aqui>
+POSTGRES_PASSWORD=<senha-do-usuario-do-banco-aqui>
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+
+SECRET_KEY=<sua-secret-key-aqui>
 ```
 
 -----
 
-### 5\. Inicialização da Aplicação
+## 3\. Inicialização e Execução da Aplicação
 
-#### 5.1. Aplicar Migrações de dados (se necessário)
+### 3.1. Levantando o Serviço de Banco de Dados com Docker
+
+Inicie o container do PostgreSQL em segundo plano (`-d`) usando o `docker-compose.yml` do projeto:
+
+```bash
+docker-compose up -d
+```
+
+### 3.2. Aplicar Migrações do Banco de Dados
+
+Com o banco de dados rodando (e o ambiente virtual **ativo**), execute as migrações para criar as tabelas necessárias:
 
 ```bash
 python manage.py migrate
 ```
 
-#### 5.2. Iniciar o Servidor de Desenvolvimento
+### 3.3. Iniciar o Servidor de Desenvolvimento
+
+Inicie a aplicação localmente.
 
 ```bash
 python manage.py runserver
 ```
 
-A aplicação ficará disponível em:
+**A aplicação estará disponível em:**
 👉 `http://127.0.0.1:8000`
+
+### 3.4. Desativar o Ambiente Virtual
+
+Quando terminar de trabalhar, você pode desativar o ambiente virtual:
+
+```bash
+deactivate
+```
+
+-----

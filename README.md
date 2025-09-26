@@ -6,5 +6,4 @@ Este repositório contém a documentação técnica e guias para a API. Utilize 
 
 - [Estrutura do Projeto](PROJECT_STRUCTURE.md)
 - [Manual de Instalação](INSTALLATION.md)
-- [Guia de Contribuição (Padrão de Commits)](CONTRIBUTING.md)
-- [Regras e Boas Práticas](RULES.md)
+- [Banco de Dados](DATABASE.md)
