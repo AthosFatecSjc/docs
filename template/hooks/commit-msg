@@ -1,0 +1,23 @@
+#!/bin/sh
+MSG_FILE=$1
+MSG=$(grep -E '^ATHOS-[0-9]+' "$MSG_FILE")
+
+# Verifica comprimento
+if [ ${#MSG} -gt 72 ]; then
+  echo "❌ Commit abortado: título com mais de 72 caracteres."
+  exit 1
+fi
+
+# Verifica se termina com ponto
+if echo "$MSG" | grep -qE '\.$'; then
+  echo "❌ Commit abortado: título não deve terminar com ponto final."
+  exit 1
+fi
+
+# Verifica presença de ID da task (ATHOS-<número>)
+if ! echo "$MSG" | grep -qE 'ATHOS-[0-9]+'; then
+  echo "❌ Commit abortado: título deve conter um ID de task no formato ATHOS-<número>."
+  exit 1
+fi
+
+exit 0
