@@ -96,7 +96,7 @@ Crie e configure o arquivo de variáveis de ambiente com as credenciais do banco
 
 ```bash
 # Crie o arquivo .env
-touch .env
+cp .env.example .env
 
 # Abra o editor (nano é um editor simples de terminal)
 nano .env
