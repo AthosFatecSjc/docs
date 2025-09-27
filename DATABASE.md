@@ -1,8 +1,8 @@
 # 📊 Documentação do Banco de Dados
 
-\<div align="center"\>
-  \<img src="img/banco.png" alt="Modelo Lógico do Banco de Dados" width="800"\>
-\</div\>
+<div align="center">
+  <img src="img/banco.png" alt="Modelo Lógico do Banco de Dados" width="800" />
+</div>
 
 -----
 
