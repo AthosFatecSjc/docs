@@ -1,35 +1,55 @@
-# Documento de Orientação da Estrutura do Projeto
+# Documento de Orientação da Estrutura do Projeto (Atualizado)
 
 ## 1\. Introdução
 
-Este documento tem como objetivo descrever a organização estrutural do projeto server, desenvolvido em Python com o framework Django. A estrutura proposta segue o padrão MTV (Model-Template-View), com separação de responsabilidades em módulos específicos, visando facilitar a manutenção, escalabilidade e entendimento por parte da equipe de desenvolvimento.
+Este documento tem como objetivo descrever a organização estrutural do projeto server, desenvolvido em Python com o framework **Django**. A estrutura proposta segue o padrão MTV (**Model-Template-View**), com separação de responsabilidades em módulos específicos, visando facilitar a manutenção, escalabilidade e entendimento por parte da equipe de desenvolvimento.
 
 -----
 
 ## 2\. Estrutura Geral
 
+A estrutura do projeto é a seguinte, a partir do diretório raiz:
+
 ```
-meu_projeto/
-├── manage.py
-├── requirements.txt
-├── .env
-├── config/
+SERVER/ (Raiz do Projeto)
+├── .github/
+├── .vscode/
 ├── apps/
+│   ├── usuarios/
+│   ├── relatorios/
+│   └── dashboards/
+├── config/
+├── olap_models/
+├── banco/
+├── migrations/
 ├── templates/
 ├── static/
-├── media/
-└── tests/
+├── .env
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── manage.py
+├── README.md
+├── requirements.txt
+└── sonar-project.properties
 ```
 
 -----
 
 ## 3\. Descrição dos Diretórios e Arquivos
 
-### 3.1 Raiz do Projeto
+### 3.1 Raiz do Projeto (`SERVER/`)
 
   * **`manage.py`**: Script principal de linha de comando do Django. Permite executar comandos como migrações, criação de usuários e inicialização do servidor.
-  * **`requirements.txt`**: Lista das dependências necessárias para execução do projeto.
-  * **`.env`**: Arquivo de variáveis de ambiente, utilizado para armazenar informações sensíveis (chaves secretas, credenciais de banco de dados, etc).
+  * **`requirements.txt`**: Lista das dependências Python necessárias para execução do projeto.
+  * **`.env`**: Arquivo de variáveis de ambiente, utilizado para armazenar informações sensíveis (chaves secretas, credenciais de banco de dados, etc). **(Ignorado pelo `.gitignore`)**
+  * **`.env.example`**: Exemplo do arquivo `.env` para referência, sem valores sensíveis.
+  * **`.gitignore`**: Define arquivos e diretórios que devem ser ignorados pelo controle de versão Git.
+  * **`docker-compose.yml`**: Arquivo de configuração para orquestração de containers Docker (servidor, banco de dados, etc.).
+  * **`README.md`**: Documento de introdução e instruções básicas para a configuração e execução do projeto.
+  * **`sonar-project.properties`**: Arquivo de configuração para a ferramenta de análise estática de código **SonarQube/SonarCloud**.
+  * **`.github/`**: Contém arquivos de configuração para **GitHub Actions** (CI/CD) ou outros recursos do GitHub.
+  * **`.vscode/`**: Contém configurações específicas para o ambiente de desenvolvimento **VS Code**.
 
 ### 3.2 Configurações – `config/`
 
@@ -41,13 +61,15 @@ config/
 ├── settings.py
 ├── urls.py
 ├── asgi.py
-└── wsgi.py
+├── wsgi.py
+└── routers.py (NOVO)
 ```
 
   * **`settings.py`**: Configurações gerais do projeto, incluindo banco de dados, apps instaladas, middlewares, templates e arquivos estáticos.
   * **`urls.py`**: Define o roteamento global do projeto. Inclui as rotas principais e referencia as rotas de cada aplicação.
   * **`asgi.py`**: Arquivo de inicialização para deploy utilizando ASGI (suporte a aplicações assíncronas).
   * **`wsgi.py`**: Arquivo de inicialização para deploy utilizando WSGI (modo tradicional).
+  * **`routers.py` (NOVO)**: Possivelmente usado para definir roteadores de API (com **Django Rest Framework**) ou para configurar o roteamento de banco de dados (`DATABASE_ROUTERS`).
 
 ### 3.3 Aplicações – `apps/`
 
@@ -59,101 +81,96 @@ Responsável pelo gerenciamento de autenticação e perfis de usuários.
 
 ```
 usuarios/
+├── __init__.py
+├── admin.py
+├── apps.py
 ├── models.py
-├── forms.py
-├── views.py
 ├── services.py
+├── tests.py
 ├── urls.py
-├── templates/usuarios/
-└── static/usuarios/
+├── views.py
+├── templates/
+└── static/
 ```
 
-  * **`models.py`**: Define os modelos de usuário, perfil e permissões.
-  * **`forms.py`**: Formulários relacionados a cadastro, login e edição de perfil.
-  * **`views.py`**: Controladores que processam requisições e retornam respostas (telas de login, cadastro, etc).
-  * **`services.py`**: Implementa regras de negócio específicas (ex.: redefinição de senha, validações extras).
+  * **`admin.py`**: Registra os modelos no painel administrativo do Django.
+  * **`apps.py`**: Configuração da aplicação.
+  * **`views.py`**: Controladores que processam requisições e retornam respostas.
+  * **`services.py`**: Implementa regras de negócio específicas.
   * **`urls.py`**: Define as rotas relacionadas a usuários.
-  * **`templates/usuarios/`**: Contém os arquivos HTML específicos da aplicação (login, cadastro, perfil).
-  * **`static/usuarios/`**: Arquivos estáticos (CSS, JS, imagens) específicos da aplicação.
+  * **`models.py`**: Define os modelos de usuário, perfil e permissões.
+  * **`tests.py`**: Implementação dos testes unitários e de integração da aplicação.
+  * **`templates/`**: Contém os arquivos HTML específicos da aplicação.
+  * **`static/`**: Arquivos estáticos (CSS, JS, imagens) específicos da aplicação.
 
 #### 3.3.2 Aplicação `relatorios/`
 
-Aplicação principal responsável pela geração e exibição de relatórios. Está organizada em submódulos, cada um correspondente a uma User Story definida no backlog.
+Aplicação principal responsável pela geração e exibição de relatórios.
 
 ```
 relatorios/
+├── __init__.py
+├── admin.py
+├── apps.py
+├── models.py
 ├── urls.py
+├── views.py
+├── atividade/
+├── comparacao/
 ├── produtividade/
-├── atividades/
-└── comparacao/
+├── migrations/
+├── templates/
+└── static/
 ```
 
-  * **`urls.py`**: Roteamento das funcionalidades de relatórios.
+  * **Estrutura interna similar a `usuarios/`**, mas com submódulos para organização de funcionalidades complexas.
+  * **`atividade/`, `comparacao/`, `produtividade/`**: Submódulos organizacionais, conforme o plano original, contendo arquivos como `views.py`, `services.py`, `exporters.py` e seus próprios diretórios `templates/` e `static/`.
 
-**a) Submódulo `produtividade/`**
-Relatório de produtividade diária/mensal (User Story 1.1).
+#### 3.3.3 Aplicação `dashboards/` (NOVO)
 
-  * **`views.py`**: Controla a renderização do relatório.
-  * **`services.py`**: Implementa regras de negócio (cálculo de produtividade).
-  * **`exporters.py`**: Exportação de relatórios para diferentes formatos (ex.: PDF, CSV).
-  * **`templates/produtividade/`**: Interface HTML do relatório.
-  * **`static/produtividade/`**: Arquivos estáticos (gráficos, scripts, estilos).
-
-**b) Submódulo `atividades/`**
-Relatório de atividades por projeto (User Story 1.2).
-
-  * **`views.py`**: Controla a exibição do relatório de atividades.
-  * **`services.py`**: Consolidação de horas por projeto e usuário.
-  * **`exporters.py`**: Exportação para formatos externos.
-  * **`templates/atividades/`**: Interface HTML.
-  * **`static/atividades/`**: Arquivos estáticos.
-
-**c) Submódulo `comparacao/`**
-Relatório de comparação entre horas previstas e realizadas (User Story 1.3).
-
-  * **`views.py`**: Exibição dos dados comparativos.
-  * **`services.py`**: Implementação da lógica de comparação.
-  * **`exporters.py`**: Exportação para diferentes formatos.
-  * **`templates/comparacao/`**: Interface HTML.
-  * **`static/comparacao/`**: Arquivos estáticos.
-
-### 3.4 Templates Globais – `templates/`
+Responsável por telas de visualização de dados agregados (painéis/dashboards).
 
 ```
-templates/
-├── base.html
-├── navbar.html
-└── dashboard.html
+dashboards/
+├── __init__.py
+├── admin.py
+├── apps.py
+├── models.py
+├── services.py
+├── tests.py
+├── urls.py
+├── views.py
+├── templates/
+└── static/
 ```
 
-  * **`base.html`**: Layout principal do sistema, herdado pelos demais templates.
-  * **`navbar.html`**: Barra de navegação principal.
-  * **`dashboard.html`**: Tela inicial após login do usuário.
+  * **Estrutura Padrão**: Segue o padrão de aplicação do Django, tratando o domínio de visualização de dashboards.
 
-### 3.5 Arquivos Estáticos Globais – `static/`
+### 3.4 Outros Diretórios de Alto Nível
 
-```
-static/
-├── css/
-│   └── main.css
-├── js/
-│   └── main.js
-└── img/
-```
+  * **`olap_models/` (NOVO)**: Diretório dedicado a modelos de dados otimizados para consultas analíticas (OLAP).
 
-Arquivos estáticos compartilhados entre todas as aplicações (ex.: estilos globais, scripts comuns, imagens).
+    ```
+    olap_models/
+    ├── __init__.py
+    ├── management/
+    │   ├── __init__.py
+    │   └── commands/
+    │       ├── __init__.py
+    │       └── rodar_etl.py (NOVO)
+    ```
 
-### 3.6 Media – `media/`
+      * **`management/commands/`**: Diretório padrão do Django para criação de comandos customizados.
+      * **`rodar_etl.py`**: Comando customizado que provavelmente executa o processo de **ETL (Extract, Transform, Load)** para popular os modelos de dados analíticos.
 
-Diretório destinado ao armazenamento de arquivos enviados por usuários (ex.: imagens de perfil, anexos).
+  * **`banco/` (NOVO)**: Diretório destinado a scripts de banco de dados.
 
-### 3.7 Testes – `tests/`
+      * **`insert.sql`**: Script SQL com comandos de `INSERT`, geralmente para dados iniciais (fixtures) ou de teste.
 
-```
-tests/
-├── unit/
-└── integration/
-```
+  * **`migrations/`**: Contém os arquivos de migração de banco de dados gerados pelo Django para rastrear alterações nos modelos.
 
-  * **`unit/`**: Testes unitários que validam cada aplicação de forma isolada.
-  * **`integration/`**: Testes de integração que validam o funcionamento conjunto entre aplicações e banco de dados.
+  * **`templates/`**: Diretório de templates **globais** (ex.: `base.html`, `dashboard.html`).
+
+  * **`static/`**: Diretório de arquivos estáticos **globais** (CSS, JS, imagens compartilhadas).
+
+-----
