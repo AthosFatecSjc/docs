@@ -47,9 +47,18 @@ A interface do Athos Insight é composta por:
 
 | Módulo | Descrição |
 | --- | --- |
-| Relatórios de Atividades e Horas | Relatórios diários, mensais e anuais por desenvolvedor e projeto. |
-| Gerenciamento de Valor/Hora | Controle de custo/hora por desenvolvedor, com edição restrita a Gerentes. |
-| Dashboard de Custos | Comparativo entre orçamento previsto e realizado, com gráficos e indicadores. |
+| Relatórios de Atividades e Horas | Relatórios diários, mensais e anuais por desenvolvedor e projeto, incluindo calendário, consolidados por projeto, gráficos e exportação em PDF. |
+| Gerenciamento de Valor/Hora | Controle do valor/hora dos desenvolvedores, com edição restrita ao perfil Gerente. |
+| Dashboard de Custos | Visão financeira com orçamento previsto, custo realizado, saldo, % utilizado, custo por desenvolvedor e exportação em PDF. |
+| Dashboard de Issues | Quantidade de issues por status, custo médio, tabela com custos por desenvolvedor e filtros por projeto. |
+| Dashboard de Bugs | Quantidade de bugs por status, custo médio, tabela por desenvolvedor e filtros por projeto. |
+| Dashboard de Produtividade da Equipe | Gráficos comparativos de horas por dia e módulos, filtros avançados por equipe/período/desenvolvedor e exportação em PDF. |
+| Integração com Banco de Dados Real | Substituição completa de dados mockados por consultas reais OLTP/OLAP, garantindo consistência entre filtros, relatórios e dashboards. |
+| Integração com Jira | Importação de issues, bugs, tarefas, subtarefas, worklogs e usuários, incluindo criação de placeholders e sincronização de cargos. |
+| Exportação em PDF | Exportação padronizada para todos os relatórios e dashboards (custos, produtividade, issues, bugs, atividades). |
+| Gestão de Usuários | CRUD completo de usuários, perfis e cargos, com filtros combinados e permissões por perfil (Membro, Líder, Gerente). |
+| Indicadores e Cálculos Automáticos | Cálculo automático de custos, horas, produtividade, distribuição por módulo e consolidação por projeto. |
+
 
 ## 5. Perfis de Usuário
 
@@ -62,24 +71,44 @@ A interface do Athos Insight é composta por:
 ## 6. Relatórios e Dashboards
 
 **Relatório Diário/Mensal de Produtividade**
-* Mostra horas lançadas por desenvolvedor em formato de calendário.
-* Exibe metas e status diários (FO, FÉ, LI).
-* Exportação em PDF.
+- Mostra horas lançadas por desenvolvedor em formato de calendário.
+- Exibe metas e status diários (FO, FÉ, LI).
+- Exportação em PDF.
 
 **Relatório Mensal de Atividades por Projeto**
-* Tabela consolidada com horas por projeto e colaborador.
-* Gráfico de pizza com proporção de dedicação.
-* Exportação em PDF.
+- Tabela consolidada com horas por projeto e colaborador.
+- Gráfico de pizza com proporção de dedicação.
+- Exportação em PDF.
 
 **Relatório Comparativo Anual**
-* Horas previstas x realizadas, com saldo e gráfico comparativo.
-* Exportação em PDF.
+- Horas previstas x realizadas, com saldo e gráfico comparativo.
+- Exportação em PDF.
 
 **Dashboard de Custos**
-* Cards com Orçamento Previsto, Custo Realizado, Saldo e Percentual Utilizado.
-* Gráfico de barras com custo por desenvolvedor.
-* Filtro por projeto.
-* Exportação em PDF.
+- Cards com Orçamento Previsto, Custo Realizado, Saldo e Percentual Utilizado.
+- Gráfico de barras com custo por desenvolvedor.
+- Filtro por projeto.
+- Exportação em PDF.
+
+**Dashboard de Issues**
+- Gráfico de pizza com quantidade de issues por status (Não iniciado, Em progresso, MR, Concluído).
+- Card com custo médio das issues abertas.
+- Tabela com ID da issue, desenvolvedor responsável e custo associado.
+- Filtro por projeto.
+- Exportação em PDF.
+
+**Dashboard de Bugs**
+- Gráfico de pizza com quantidade de bugs por status.
+- Card com custo médio dos bugs em aberto.
+- Tabela com ID do bug, desenvolvedor responsável e custo associado.
+- Filtro por projeto.
+- Exportação em PDF.
+
+**Dashboard de Produtividade da Equipe**
+- Gráfico de barras comparando horas trabalhadas por dia entre desenvolvedores.
+- Gráfico empilhado com distribuição de horas por módulo/epic.
+- Filtros por desenvolvedor, período e projeto.
+- Exportação em PDF.
 
 ## 7. Ambiente Técnico
 
