@@ -34,7 +34,7 @@ O ambiente atual comporta até 30 usuários simultâneos, garantindo estabilidad
 * Acesso controlado por perfis de permissão (Gerente, Líder, Membro).
 * Sessões seguras via protocolo HTTPS.
 
-# ## 3. Interface e Navegação
+## 3. Interface e Navegação
 
 A interface do **Athos Insight** foi projetada para ser simples, responsiva e orientada à produtividade. A seguir estão os principais elementos que compõem a navegação do sistema:
 
