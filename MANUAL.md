@@ -358,8 +358,7 @@ __Created By:__ Ruth Da Silva Mira
 
 **Dashboard de Produtividade da Equipe**
 - Gráfico de barras comparando horas trabalhadas por dia entre desenvolvedores.
-- Gráfico empilhado com distribuição de horas por módulo/epic.
-- Filtros por desenvolvedor, período e projeto.
+- Filtros por período e projeto.
 - Exportação em PDF.
 
 ## 7. Ambiente Técnico
